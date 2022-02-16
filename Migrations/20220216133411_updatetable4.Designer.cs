@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using cdStore.Data;
 
@@ -10,9 +11,10 @@ using cdStore.Data;
 namespace cdStore.Migrations
 {
     [DbContext(typeof(CdContext))]
-    partial class CdContextModelSnapshot : ModelSnapshot
+    [Migration("20220216133411_updatetable4")]
+    partial class updatetable4
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "6.0.2");

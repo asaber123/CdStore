@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using cdStore.Data;
 
@@ -10,9 +11,10 @@ using cdStore.Data;
 namespace cdStore.Migrations
 {
     [DbContext(typeof(CdContext))]
-    partial class CdContextModelSnapshot : ModelSnapshot
+    [Migration("20220216133140_updatetable3")]
+    partial class updatetable3
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "6.0.2");
@@ -43,9 +45,8 @@ namespace cdStore.Migrations
                     b.Property<int?>("ArtistId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("ArtistName")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
+                    b.Property<int>("ArtistName")
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("CdName")
                         .HasColumnType("TEXT");
@@ -56,9 +57,8 @@ namespace cdStore.Migrations
                     b.Property<int?>("UserId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("UserName")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
+                    b.Property<int>("UserName")
+                        .HasColumnType("INTEGER");
 
                     b.HasKey("CdId");
 
