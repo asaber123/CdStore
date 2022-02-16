@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "mguU0DZ4ymXcBIql4B4XuTgtsUWC4YJ4si+sE4JiNziD6uOIMDVKBX/RXzALL+4VS3XcaE3YIygHAhom/2Ztqg==",
+  "dgSpecHash": "iKgvxQv4rkmXSw2xkC4yynqv9IzRM9SHD3AQufwUDH2yRTPDwYeR9XHt4NOspuUu1S5rFtcKzuaq7wiUfzSevg==",
   "success": true,
-  "projectFilePath": "/Users/asaberglund/Desktop/cdStore (kopia)/cdStore.csproj",
+  "projectFilePath": "/Users/asaberglund/Desktop/CdStore/cdStore.csproj",
   "expectedPackageFiles": [
     "/Users/asaberglund/.nuget/packages/humanizer.core/2.8.26/humanizer.core.2.8.26.nupkg.sha512",
     "/Users/asaberglund/.nuget/packages/messagepack/2.1.152/messagepack.2.1.152.nupkg.sha512",

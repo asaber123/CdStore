@@ -10,7 +10,8 @@ namespace cdStore.Models
         public string? UserName { get; set; }
         public string? UserPhone { get; set; }
 
-        public Cd? Cd { get; set; }
+        public List<Cd>? Cd { get; set; }
+
 
 
         //Class that handle the communication with enity framework. 

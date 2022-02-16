@@ -11,8 +11,8 @@ using cdStore.Data;
 namespace cdStore.Migrations
 {
     [DbContext(typeof(CdContext))]
-    [Migration("20220216095839_updatecdtable")]
-    partial class updatecdtable
+    [Migration("20220216132225_updatetableartist")]
+    partial class updatetableartist
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -31,24 +31,19 @@ namespace cdStore.Migrations
                     b.Property<string>("ArtistOrigin")
                         .HasColumnType("TEXT");
 
-                    b.Property<int?>("CdId")
-                        .HasColumnType("INTEGER");
-
                     b.HasKey("ArtistId");
-
-                    b.HasIndex("CdId");
 
                     b.ToTable("Artist");
                 });
 
             modelBuilder.Entity("cdStore.Models.Cd", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("CdId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("Artist")
-                        .HasColumnType("TEXT");
+                    b.Property<int>("ArtistId")
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("CdName")
                         .HasColumnType("TEXT");
@@ -56,7 +51,14 @@ namespace cdStore.Migrations
                     b.Property<int?>("Price")
                         .HasColumnType("INTEGER");
 
-                    b.HasKey("Id");
+                    b.Property<int>("UserId")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("CdId");
+
+                    b.HasIndex("ArtistId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Cd");
                 });
@@ -78,43 +80,33 @@ namespace cdStore.Migrations
                     b.ToTable("User");
                 });
 
-            modelBuilder.Entity("CdUser", b =>
+            modelBuilder.Entity("cdStore.Models.Cd", b =>
                 {
-                    b.Property<int>("CdId")
-                        .HasColumnType("INTEGER");
+                    b.HasOne("cdStore.Models.Artist", "Artist")
+                        .WithMany("Cd")
+                        .HasForeignKey("ArtistId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.Property<int>("UserId")
-                        .HasColumnType("INTEGER");
+                    b.HasOne("cdStore.Models.User", "User")
+                        .WithMany("Cd")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.HasKey("CdId", "UserId");
+                    b.Navigation("Artist");
 
-                    b.HasIndex("UserId");
-
-                    b.ToTable("CdUser");
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("cdStore.Models.Artist", b =>
                 {
-                    b.HasOne("cdStore.Models.Cd", "Cd")
-                        .WithMany()
-                        .HasForeignKey("CdId");
-
                     b.Navigation("Cd");
                 });
 
-            modelBuilder.Entity("CdUser", b =>
+            modelBuilder.Entity("cdStore.Models.User", b =>
                 {
-                    b.HasOne("cdStore.Models.Cd", null)
-                        .WithMany()
-                        .HasForeignKey("CdId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("cdStore.Models.User", null)
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.Navigation("Cd");
                 });
 #pragma warning restore 612, 618
         }

@@ -9819,11 +9819,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/asaberglund/Desktop/cdStore (kopia)/cdStore.csproj",
+      "projectUniqueName": "/Users/asaberglund/Desktop/CdStore/cdStore.csproj",
       "projectName": "cdStore",
-      "projectPath": "/Users/asaberglund/Desktop/cdStore (kopia)/cdStore.csproj",
+      "projectPath": "/Users/asaberglund/Desktop/CdStore/cdStore.csproj",
       "packagesPath": "/Users/asaberglund/.nuget/packages/",
-      "outputPath": "/Users/asaberglund/Desktop/cdStore (kopia)/obj/",
+      "outputPath": "/Users/asaberglund/Desktop/CdStore/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "/Users/asaberglund/.nuget/NuGet/NuGet.Config"

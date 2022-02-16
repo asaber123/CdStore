@@ -6,7 +6,7 @@ namespace cdStore.Models{
         public string? ArtistName { get; set; }
         public string? ArtistOrigin { get; set; }
 
-        public Cd? Cd { get; set; }
+        public List<Cd>? Cd { get; set; }
   
         //Class that handle the communication with enity framework. 
         

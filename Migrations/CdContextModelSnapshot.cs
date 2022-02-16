@@ -29,24 +29,19 @@ namespace cdStore.Migrations
                     b.Property<string>("ArtistOrigin")
                         .HasColumnType("TEXT");
 
-                    b.Property<int?>("CdId")
-                        .HasColumnType("INTEGER");
-
                     b.HasKey("ArtistId");
-
-                    b.HasIndex("CdId");
 
                     b.ToTable("Artist");
                 });
 
             modelBuilder.Entity("cdStore.Models.Cd", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("CdId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("Artist")
-                        .HasColumnType("TEXT");
+                    b.Property<int>("ArtistId")
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("CdName")
                         .HasColumnType("TEXT");
@@ -54,7 +49,14 @@ namespace cdStore.Migrations
                     b.Property<int?>("Price")
                         .HasColumnType("INTEGER");
 
-                    b.HasKey("Id");
+                    b.Property<int>("UserId")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("CdId");
+
+                    b.HasIndex("ArtistId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Cd");
                 });
@@ -65,9 +67,6 @@ namespace cdStore.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<int?>("CdId")
-                        .HasColumnType("INTEGER");
-
                     b.Property<string>("UserName")
                         .HasColumnType("TEXT");
 
@@ -76,26 +75,35 @@ namespace cdStore.Migrations
 
                     b.HasKey("UserId");
 
-                    b.HasIndex("CdId");
-
                     b.ToTable("User");
+                });
+
+            modelBuilder.Entity("cdStore.Models.Cd", b =>
+                {
+                    b.HasOne("cdStore.Models.Artist", "Artist")
+                        .WithMany("Cd")
+                        .HasForeignKey("ArtistId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("cdStore.Models.User", "User")
+                        .WithMany("Cd")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Artist");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("cdStore.Models.Artist", b =>
                 {
-                    b.HasOne("cdStore.Models.Cd", "Cd")
-                        .WithMany()
-                        .HasForeignKey("CdId");
-
                     b.Navigation("Cd");
                 });
 
             modelBuilder.Entity("cdStore.Models.User", b =>
                 {
-                    b.HasOne("cdStore.Models.Cd", "Cd")
-                        .WithMany()
-                        .HasForeignKey("CdId");
-
                     b.Navigation("Cd");
                 });
 #pragma warning restore 612, 618

@@ -4,7 +4,7 @@
 
 namespace cdStore.Migrations
 {
-    public partial class updatecdtable : Migration
+    public partial class updatetableartist : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
