@@ -11,8 +11,8 @@ using cdStore.Data;
 namespace cdStore.Migrations
 {
     [DbContext(typeof(CdContext))]
-    [Migration("20220216133140_updatetable3")]
-    partial class updatetable3
+    [Migration("20220216144211_updatetablejlrrew")]
+    partial class updatetablejlrrew
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -42,10 +42,7 @@ namespace cdStore.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<int?>("ArtistId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("ArtistName")
+                    b.Property<int>("ArtistId")
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("CdName")
@@ -54,17 +51,9 @@ namespace cdStore.Migrations
                     b.Property<int?>("Price")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int?>("UserId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("UserName")
-                        .HasColumnType("INTEGER");
-
                     b.HasKey("CdId");
 
                     b.HasIndex("ArtistId");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("Cd");
                 });
@@ -75,6 +64,9 @@ namespace cdStore.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
+                    b.Property<int>("CdId")
+                        .HasColumnType("INTEGER");
+
                     b.Property<string>("UserName")
                         .HasColumnType("TEXT");
 
@@ -83,6 +75,8 @@ namespace cdStore.Migrations
 
                     b.HasKey("UserId");
 
+                    b.HasIndex("CdId");
+
                     b.ToTable("User");
                 });
 
@@ -90,15 +84,22 @@ namespace cdStore.Migrations
                 {
                     b.HasOne("cdStore.Models.Artist", "Artist")
                         .WithMany("Cd")
-                        .HasForeignKey("ArtistId");
-
-                    b.HasOne("cdStore.Models.User", "User")
-                        .WithMany("Cd")
-                        .HasForeignKey("UserId");
+                        .HasForeignKey("ArtistId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Artist");
+                });
 
-                    b.Navigation("User");
+            modelBuilder.Entity("cdStore.Models.User", b =>
+                {
+                    b.HasOne("cdStore.Models.Cd", "Cd")
+                        .WithMany("User")
+                        .HasForeignKey("CdId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Cd");
                 });
 
             modelBuilder.Entity("cdStore.Models.Artist", b =>
@@ -106,9 +107,9 @@ namespace cdStore.Migrations
                     b.Navigation("Cd");
                 });
 
-            modelBuilder.Entity("cdStore.Models.User", b =>
+            modelBuilder.Entity("cdStore.Models.Cd", b =>
                 {
-                    b.Navigation("Cd");
+                    b.Navigation("User");
                 });
 #pragma warning restore 612, 618
         }

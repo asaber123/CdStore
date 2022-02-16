@@ -23,7 +23,8 @@ namespace cdStore.Controllers
         // GET: Cd
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Cd.ToListAsync());
+            var cdContext = _context.Cd.Include(c => c.Artist);
+            return View(await cdContext.ToListAsync());
         }
 
         // GET: Cd/Details/5
@@ -35,6 +36,7 @@ namespace cdStore.Controllers
             }
 
             var cd = await _context.Cd
+                .Include(c => c.Artist)
                 .FirstOrDefaultAsync(m => m.CdId == id);
             if (cd == null)
             {
@@ -47,6 +49,7 @@ namespace cdStore.Controllers
         // GET: Cd/Create
         public IActionResult Create()
         {
+            ViewData["ArtistId"] = new SelectList(_context.Artist, "ArtistId", "ArtistName");
             return View();
         }
 
@@ -55,7 +58,7 @@ namespace cdStore.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("CdId,CdName,Price,ArtistName,UserName")] Cd cd)
+        public async Task<IActionResult> Create([Bind("CdId,CdName,Price,ArtistId")] Cd cd)
         {
             if (ModelState.IsValid)
             {
@@ -63,6 +66,7 @@ namespace cdStore.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["ArtistId"] = new SelectList(_context.Artist, "ArtistId", "ArtistName", cd.ArtistId);
             return View(cd);
         }
 
@@ -79,6 +83,7 @@ namespace cdStore.Controllers
             {
                 return NotFound();
             }
+            ViewData["ArtistId"] = new SelectList(_context.Artist, "ArtistId", "ArtistId", cd.ArtistId);
             return View(cd);
         }
 
@@ -87,7 +92,7 @@ namespace cdStore.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("CdId,CdName,Price,ArtistName,UserName")] Cd cd)
+        public async Task<IActionResult> Edit(int id, [Bind("CdId,CdName,Price,ArtistId")] Cd cd)
         {
             if (id != cd.CdId)
             {
@@ -114,6 +119,7 @@ namespace cdStore.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["ArtistId"] = new SelectList(_context.Artist, "ArtistId", "ArtistId", cd.ArtistId);
             return View(cd);
         }
 
@@ -126,6 +132,7 @@ namespace cdStore.Controllers
             }
 
             var cd = await _context.Cd
+                .Include(c => c.Artist)
                 .FirstOrDefaultAsync(m => m.CdId == id);
             if (cd == null)
             {

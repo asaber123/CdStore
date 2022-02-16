@@ -12,7 +12,7 @@ namespace cdStore.Data
         //creating tables from cdContext
         public DbSet<Cd> Cd{ get; set;}
         public DbSet<Artist> Artist{ get; set;}
-        public DbSet<cdStore.Models.User> User { get; set; }
+        public DbSet<User> User { get; set; }
 
 
     }

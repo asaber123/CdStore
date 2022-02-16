@@ -23,7 +23,8 @@ namespace cdStore.Controllers
         // GET: User
         public async Task<IActionResult> Index()
         {
-            return View(await _context.User.ToListAsync());
+            var cdContext = _context.User.Include(u => u.Cd);
+            return View(await cdContext.ToListAsync());
         }
 
         // GET: User/Details/5
@@ -35,6 +36,7 @@ namespace cdStore.Controllers
             }
 
             var user = await _context.User
+                .Include(u => u.Cd)
                 .FirstOrDefaultAsync(m => m.UserId == id);
             if (user == null)
             {
@@ -47,6 +49,7 @@ namespace cdStore.Controllers
         // GET: User/Create
         public IActionResult Create()
         {
+            ViewData["CdId"] = new SelectList(_context.Cd, "CdId", "CdId");
             return View();
         }
 
@@ -55,7 +58,7 @@ namespace cdStore.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("UserId,UserName,UserPhone")] User user)
+        public async Task<IActionResult> Create([Bind("UserId,UserName,UserPhone,CdId")] User user)
         {
             if (ModelState.IsValid)
             {
@@ -63,6 +66,7 @@ namespace cdStore.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["CdId"] = new SelectList(_context.Cd, "CdId", "CdId", user.CdId);
             return View(user);
         }
 
@@ -79,6 +83,7 @@ namespace cdStore.Controllers
             {
                 return NotFound();
             }
+            ViewData["CdId"] = new SelectList(_context.Cd, "CdId", "CdId", user.CdId);
             return View(user);
         }
 
@@ -87,7 +92,7 @@ namespace cdStore.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("UserId,UserName,UserPhone")] User user)
+        public async Task<IActionResult> Edit(int id, [Bind("UserId,UserName,UserPhone,CdId")] User user)
         {
             if (id != user.UserId)
             {
@@ -114,6 +119,7 @@ namespace cdStore.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["CdId"] = new SelectList(_context.Cd, "CdId", "CdId", user.CdId);
             return View(user);
         }
 
@@ -126,6 +132,7 @@ namespace cdStore.Controllers
             }
 
             var user = await _context.User
+                .Include(u => u.Cd)
                 .FirstOrDefaultAsync(m => m.UserId == id);
             if (user == null)
             {

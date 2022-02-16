@@ -4,7 +4,7 @@
 
 namespace cdStore.Migrations
 {
-    public partial class updatetable : Migration
+    public partial class updatetablejlrrew : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -23,20 +23,6 @@ namespace cdStore.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "User",
-                columns: table => new
-                {
-                    UserId = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    UserName = table.Column<string>(type: "TEXT", nullable: true),
-                    UserPhone = table.Column<string>(type: "TEXT", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_User", x => x.UserId);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Cd",
                 columns: table => new
                 {
@@ -44,8 +30,7 @@ namespace cdStore.Migrations
                         .Annotation("Sqlite:Autoincrement", true),
                     CdName = table.Column<string>(type: "TEXT", nullable: true),
                     Price = table.Column<int>(type: "INTEGER", nullable: true),
-                    ArtistId = table.Column<int>(type: "INTEGER", nullable: false),
-                    UserId = table.Column<int>(type: "INTEGER", nullable: false)
+                    ArtistId = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -56,11 +41,26 @@ namespace cdStore.Migrations
                         principalTable: "Artist",
                         principalColumn: "ArtistId",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "User",
+                columns: table => new
+                {
+                    UserId = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    UserName = table.Column<string>(type: "TEXT", nullable: true),
+                    UserPhone = table.Column<string>(type: "TEXT", nullable: true),
+                    CdId = table.Column<int>(type: "INTEGER", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_User", x => x.UserId);
                     table.ForeignKey(
-                        name: "FK_Cd_User_UserId",
-                        column: x => x.UserId,
-                        principalTable: "User",
-                        principalColumn: "UserId",
+                        name: "FK_User_Cd_CdId",
+                        column: x => x.CdId,
+                        principalTable: "Cd",
+                        principalColumn: "CdId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -70,21 +70,21 @@ namespace cdStore.Migrations
                 column: "ArtistId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Cd_UserId",
-                table: "Cd",
-                column: "UserId");
+                name: "IX_User_CdId",
+                table: "User",
+                column: "CdId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
+                name: "User");
+
+            migrationBuilder.DropTable(
                 name: "Cd");
 
             migrationBuilder.DropTable(
                 name: "Artist");
-
-            migrationBuilder.DropTable(
-                name: "User");
         }
     }
 }
