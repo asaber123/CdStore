@@ -47,17 +47,13 @@ namespace cdStore.Controllers
         }
 
         // GET: User/Create
-        public IActionResult Create()
+        public async Task<IActionResult> Create(int? id)
         {
-            ViewData["CdId"] = new SelectList(_context.Cd, "CdId", "CdName");
+
+            ViewData["CdId"] = id;
             return View();
         }
-        //         public Task<IActionResult> Create(int? id)
-        // {
-            
-        //     ViewData["CdId"] = new SelectList(_context.Cd, "CdId", "CdName");
-        //     return View();
-        // }
+
 
         // POST: User/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.

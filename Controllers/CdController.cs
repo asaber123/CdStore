@@ -24,7 +24,7 @@ namespace cdStore.Controllers
         public async Task<IActionResult> Index(string searchString)
         {
             
-            var search = from Cd in _context.Cd
+            var search = from Cd in _context.Cd.Include(c => c.Artist)
                 select Cd;
 
             if (!String.IsNullOrEmpty(searchString))
