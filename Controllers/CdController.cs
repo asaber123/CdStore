@@ -21,10 +21,18 @@ namespace cdStore.Controllers
         }
 
         // GET: Cd
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string searchString)
         {
-            var cdContext = _context.Cd.Include(c => c.Artist);
-            return View(await cdContext.ToListAsync());
+            
+            var search = from Cd in _context.Cd
+                select Cd;
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                search = search.Where(s => s.CdName!.Contains(searchString));
+            }
+            
+            return View(await search.ToListAsync());
         }
 
         // GET: Cd/Details/5
@@ -83,7 +91,7 @@ namespace cdStore.Controllers
             {
                 return NotFound();
             }
-            ViewData["ArtistId"] = new SelectList(_context.Artist, "ArtistId", "ArtistId", cd.ArtistId);
+            ViewData["ArtistId"] = new SelectList(_context.Artist, "ArtistId", "ArtistName", cd.ArtistId);
             return View(cd);
         }
 
@@ -119,7 +127,7 @@ namespace cdStore.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["ArtistId"] = new SelectList(_context.Artist, "ArtistId", "ArtistId", cd.ArtistId);
+            ViewData["ArtistId"] = new SelectList(_context.Artist, "ArtistId", "ArtistName", cd.ArtistId);
             return View(cd);
         }
 

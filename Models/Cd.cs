@@ -8,8 +8,8 @@ namespace cdStore.Models{
         public int? Price { get; set; }
 
 
-        public int ArtistId { get; set; }
-        public Artist Artist { get; set; }
+        public int? ArtistId { get; set; }
+        public Artist? Artist { get; set; }
 
          public List<User>? User { get; set; }
 

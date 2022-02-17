@@ -11,8 +11,8 @@ using cdStore.Data;
 namespace cdStore.Migrations
 {
     [DbContext(typeof(CdContext))]
-    [Migration("20220216144211_updatetablejlrrew")]
-    partial class updatetablejlrrew
+    [Migration("20220217081355_updatetablesadas")]
+    partial class updatetablesadas
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -42,7 +42,7 @@ namespace cdStore.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("ArtistId")
+                    b.Property<int?>("ArtistId")
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("CdName")
@@ -64,7 +64,7 @@ namespace cdStore.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("CdId")
+                    b.Property<int?>("CdId")
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("UserName")
@@ -84,9 +84,7 @@ namespace cdStore.Migrations
                 {
                     b.HasOne("cdStore.Models.Artist", "Artist")
                         .WithMany("Cd")
-                        .HasForeignKey("ArtistId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("ArtistId");
 
                     b.Navigation("Artist");
                 });
@@ -95,9 +93,7 @@ namespace cdStore.Migrations
                 {
                     b.HasOne("cdStore.Models.Cd", "Cd")
                         .WithMany("User")
-                        .HasForeignKey("CdId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("CdId");
 
                     b.Navigation("Cd");
                 });

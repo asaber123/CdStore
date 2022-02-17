@@ -49,9 +49,15 @@ namespace cdStore.Controllers
         // GET: User/Create
         public IActionResult Create()
         {
-            ViewData["CdId"] = new SelectList(_context.Cd, "CdId", "CdId");
+            ViewData["CdId"] = new SelectList(_context.Cd, "CdId", "CdName");
             return View();
         }
+        //         public Task<IActionResult> Create(int? id)
+        // {
+            
+        //     ViewData["CdId"] = new SelectList(_context.Cd, "CdId", "CdName");
+        //     return View();
+        // }
 
         // POST: User/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
@@ -66,7 +72,7 @@ namespace cdStore.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CdId"] = new SelectList(_context.Cd, "CdId", "CdId", user.CdId);
+            ViewData["CdId"] = new SelectList(_context.Cd, "CdId", "CdName", user.CdId);
             return View(user);
         }
 
@@ -83,7 +89,7 @@ namespace cdStore.Controllers
             {
                 return NotFound();
             }
-            ViewData["CdId"] = new SelectList(_context.Cd, "CdId", "CdId", user.CdId);
+            ViewData["CdId"] = new SelectList(_context.Cd, "CdId", "CdName", user.CdId);
             return View(user);
         }
 
@@ -119,7 +125,7 @@ namespace cdStore.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CdId"] = new SelectList(_context.Cd, "CdId", "CdId", user.CdId);
+            ViewData["CdId"] = new SelectList(_context.Cd, "CdId", "CdName", user.CdId);
             return View(user);
         }
 

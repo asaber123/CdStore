@@ -4,7 +4,7 @@
 
 namespace cdStore.Migrations
 {
-    public partial class updatetablejlrrew : Migration
+    public partial class updatetableds : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -30,7 +30,7 @@ namespace cdStore.Migrations
                         .Annotation("Sqlite:Autoincrement", true),
                     CdName = table.Column<string>(type: "TEXT", nullable: true),
                     Price = table.Column<int>(type: "INTEGER", nullable: true),
-                    ArtistId = table.Column<int>(type: "INTEGER", nullable: false)
+                    ArtistId = table.Column<int>(type: "INTEGER", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -39,8 +39,7 @@ namespace cdStore.Migrations
                         name: "FK_Cd_Artist_ArtistId",
                         column: x => x.ArtistId,
                         principalTable: "Artist",
-                        principalColumn: "ArtistId",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "ArtistId");
                 });
 
             migrationBuilder.CreateTable(
@@ -51,7 +50,7 @@ namespace cdStore.Migrations
                         .Annotation("Sqlite:Autoincrement", true),
                     UserName = table.Column<string>(type: "TEXT", nullable: true),
                     UserPhone = table.Column<string>(type: "TEXT", nullable: true),
-                    CdId = table.Column<int>(type: "INTEGER", nullable: false)
+                    CdId = table.Column<int>(type: "INTEGER", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -60,8 +59,7 @@ namespace cdStore.Migrations
                         name: "FK_User_Cd_CdId",
                         column: x => x.CdId,
                         principalTable: "Cd",
-                        principalColumn: "CdId",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "CdId");
                 });
 
             migrationBuilder.CreateIndex(
