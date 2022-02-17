@@ -10,6 +10,8 @@ namespace cdStore.Models
         public string? UserName { get; set; }
         public string? UserPhone { get; set; }
 
+        public DateTime Date { get; set; } = DateTime.Now;
+
         public int? CdId { get; set; }
         public Cd? Cd { get; set; }
 

@@ -55,13 +55,12 @@ namespace cdStore.Controllers
             return View();
         }
 
-
         // POST: User/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("UserId,UserName,UserPhone,CdId")] User user)
+        public async Task<IActionResult> Create([Bind("UserId,UserName,UserPhone,Date,CdId")] User user)
         {
             if (ModelState.IsValid)
             {
@@ -69,7 +68,7 @@ namespace cdStore.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CdId"] = new SelectList(_context.Cd, "CdId", "CdName", user.CdId);
+            ViewData["CdId"] = new SelectList(_context.Cd, "CdId", "CdId", user.CdId);
             return View(user);
         }
 
@@ -86,7 +85,7 @@ namespace cdStore.Controllers
             {
                 return NotFound();
             }
-            ViewData["CdId"] = new SelectList(_context.Cd, "CdId", "CdName", user.CdId);
+            ViewData["CdId"] = new SelectList(_context.Cd, "CdId", "CdId", user.CdId);
             return View(user);
         }
 
@@ -95,7 +94,7 @@ namespace cdStore.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("UserId,UserName,UserPhone,CdId")] User user)
+        public async Task<IActionResult> Edit(int id, [Bind("UserId,UserName,UserPhone,Date,CdId")] User user)
         {
             if (id != user.UserId)
             {
@@ -122,7 +121,7 @@ namespace cdStore.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CdId"] = new SelectList(_context.Cd, "CdId", "CdName", user.CdId);
+            ViewData["CdId"] = new SelectList(_context.Cd, "CdId", "CdId", user.CdId);
             return View(user);
         }
 
