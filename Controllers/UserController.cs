@@ -47,10 +47,11 @@ namespace cdStore.Controllers
         }
 
         // GET: User/Create
-        public async Task<IActionResult> Create(int? id)
+        public async Task<IActionResult> Create(int? id, string name)
         {
 
             ViewData["CdId"] = id;
+            ViewData["CdName"] = name;
             return View();
         }
 
