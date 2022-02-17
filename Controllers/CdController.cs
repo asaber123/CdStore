@@ -29,7 +29,7 @@ namespace cdStore.Controllers
 
             if (!String.IsNullOrEmpty(searchString))
             {
-                search = search.Where(s => s.CdName!.Contains(searchString));
+                search = search.Where(s => s.CdName!.ToLower().Contains(searchString.ToLower()));
             }
             
             return View(await search.ToListAsync());
