@@ -49,6 +49,8 @@ namespace cdStore.Controllers
         // GET: User/Create
         public async Task<IActionResult> Create(int? id, string name)
         {
+            //When the user press the link to loan cd, an id and name of the cd will be sent in the request and the view will be the creae view
+            //The id and name will then be stored in viewData to be able to show it on the sceen. 
 
             ViewData["CdId"] = id;
             ViewData["CdName"] = name;

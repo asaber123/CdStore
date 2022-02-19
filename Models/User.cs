@@ -12,6 +12,7 @@ namespace cdStore.Models
 
         public DateTime Date { get; set; } = DateTime.Now;
 
+        //This class will be the model of the table Artis. It will have a one to many relationship to cd. 
         public int? CdId { get; set; }
         public Cd? Cd { get; set; }
 

@@ -9,6 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using cdStore.Data;
 using cdStore.Models;
 
+//This is the controller wth all http requests to the table Artist. 
 namespace cdStore.Controllers
 {
     public class ArtistController : Controller

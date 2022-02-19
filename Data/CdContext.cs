@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace cdStore.Data
 {
+    //This is the class that conects the tables to the database
     public class CdContext : DbContext
     {
         public CdContext(DbContextOptions<CdContext> options) : base(options)

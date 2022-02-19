@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using cdStore.Data;
 using cdStore.Models;
+//This is the controller wth all http requests to the table Cd. 
 
 namespace cdStore.Controllers
 {
@@ -23,14 +24,16 @@ namespace cdStore.Controllers
         // GET: Cd
         public async Task<IActionResult> Index(string searchString)
         {
-            
+            // This is the fucntion for the search input form filtering and seracthing from cd name
             var search = from Cd in _context.Cd.Include(c => c.Artist)
                 select Cd;
-
+            // If the string is not null then it will search through the cdName and filter from the string, undependent if the letters are upper or lower. 
             if (!String.IsNullOrEmpty(searchString))
             {
+                // 
                 search = search.Where(s => s.CdName!.ToLower().Contains(searchString.ToLower()));
             }
+            // Then the list will be in the view. 
             
             return View(await search.ToListAsync());
         }
@@ -57,6 +60,7 @@ namespace cdStore.Controllers
         // GET: Cd/Create
         public IActionResult Create()
         {
+            //In viewData I changes artist id to artist name to be able to view the name of the artist on the screen. 
             ViewData["ArtistId"] = new SelectList(_context.Artist, "ArtistId", "ArtistName");
             return View();
         }
@@ -74,6 +78,7 @@ namespace cdStore.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+          //In viewData I changes artist id to artist name to be able to view the name of the artist on the screen. 
             ViewData["ArtistId"] = new SelectList(_context.Artist, "ArtistId", "ArtistName", cd.ArtistId);
             return View(cd);
         }
@@ -91,6 +96,7 @@ namespace cdStore.Controllers
             {
                 return NotFound();
             }
+            //In viewData I changes artist id to artist name to be able to view the name of the artist on the screen. 
             ViewData["ArtistId"] = new SelectList(_context.Artist, "ArtistId", "ArtistName", cd.ArtistId);
             return View(cd);
         }
@@ -127,6 +133,7 @@ namespace cdStore.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+             //In viewData I changes artist id to artist name to be able to view the name of the artist on the screen. 
             ViewData["ArtistId"] = new SelectList(_context.Artist, "ArtistId", "ArtistName", cd.ArtistId);
             return View(cd);
         }
